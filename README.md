@@ -1,6 +1,6 @@
 # COLOR DESIGNER #
 
-Version: 2019-02-18
+Version: 2019-02-18.2
 
 Facilitate choosing colors for design.
 
@@ -39,3 +39,7 @@ Looks like using a tridaic scheme, Deep Yellow, and Cayman Isle Green might be g
 **Ref::**
 
 [Dharma Trading Co.](https://www.dharmatrading.com/dyes/)
+
+**Release Notes:**
+
+2019-02-18.2 corrected a mistaken color gamut error (P3 vs native) that dulled everything.

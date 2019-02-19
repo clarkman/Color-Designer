@@ -35,7 +35,8 @@ for c = 1 : numColors
     if( strcmpi(colorNames{c},baseColor) )
         chosenColor = c;
         chosenColorName = colorNames{c};
-        break
+        %colrs(c,:)
+        %break
     end
 end
 
@@ -69,7 +70,8 @@ for c = 1 : numColors
     xPos = sind(hssv(1)*360)*rad;
     yPos = cosd(hssv(1)*360)*rad;
     colr=colrs(c,:)./255;
-    line([0 xPos],[0 yPos],'Color',colr,...
+%    line([0 xPos],[0 yPos],'Color',colr,...
+    line([xPos],[yPos],'Color',colr,...
         'Marker','o','LineStyle','none',...
         'MarkerFaceColor',colr,...
         'MarkerSize',24)
@@ -79,7 +81,7 @@ end
 
 drawScheme( schema, colrs(chosenColor,:) );
 
-title( [schema, ' for ', chosenColorName] )
+title( { [schema, ' for ', chosenColorName] ; '' } )
 
 end
 
@@ -167,6 +169,6 @@ end
 end
 
 % some cool ones:
-% colorWheel(colors{1},RGB,'Orchid','triadic')
-% colorWheel(colors{1},RGB,'Daffodil','analogous')
-% colorWheel(colors{1},RGB,'Daffodil','split complements')
+% close('all');colorWheel(colors{1},RGB,'Orchid','triadic')
+% close('all');colorWheel(colors{1},RGB,'Daffodil','analogous')
+% close('all');colorWheel(colors{1},RGB,'Daffodil','split complements')
