@@ -1,6 +1,6 @@
 # COLOR DESIGNER #
 
-Version: 2019-02-18.2
+Version: 2019-02-27.1
 
 Facilitate choosing colors for design.
 
@@ -19,10 +19,14 @@ baseColor as a starting point, draw lines on the wheel that indicate other color
 
 Tested in Matlab, soon to be tested in Octave.
 
+2019-02-27.1 added GUI, switch state into global variables
+
 **TODO:**
 
 - Include a few more sample color catalogs.
 - Finish out 'neutrals' scheme.
+- Size palette (Position) to match square swatches
+- Move global variables into class, attach at fig.UserData
 
 **Example:**
 
