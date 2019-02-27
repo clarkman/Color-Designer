@@ -19,8 +19,6 @@ baseColor as a starting point, draw lines on the wheel that indicate other color
 
 Tested in Matlab, soon to be tested in Octave.
 
-2019-02-27.1 added GUI, switch state into global variables
-
 **TODO:**
 
 - Include a few more sample color catalogs.
@@ -46,4 +44,5 @@ Looks like using a tridaic scheme, Deep Yellow, and Cayman Isle Green might be g
 
 **Release Notes:**
 
-2019-02-18.2 corrected a mistaken color gamut error (P3 vs native) that dulled everything.
+2019-02-18.2 Corrected a mistaken color gamut error (P3 vs native) that dulled everything.
+2019-02-27.1 Added GUI, switched state into global variables
