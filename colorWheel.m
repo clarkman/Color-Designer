@@ -102,19 +102,19 @@ end
 % patch(swatchesX,swatchesY,colors',)
 %patch(swatchesX,swatchesY)
 
-
-% Draw text
-tOff = 0.075;
-for c = 1 : numColors
-    sprintf('%s',colorNames{c});
-    hssv=rgb2hsv(colrs(c,:));
-    rad=hssv(3)*2;
-    xPos = sind(hssv(1)*360)*rad;
-    yPos = cosd(hssv(1)*360)*rad;
-    text(xPos,yPos-tOff,colorNames{c},...
-        'HorizontalAlignment','center')
+if getLabels()
+  % Draw text
+  tOff = 0.075;
+  for c = 1 : numColors
+      sprintf('%s',colorNames{c});
+      hssv=rgb2hsv(colrs(c,:));
+      rad=hssv(3)*2;
+      xPos = sind(hssv(1)*360)*rad;
+      yPos = cosd(hssv(1)*360)*rad;
+      text(xPos,yPos-tOff,colorNames{c},...
+          'HorizontalAlignment','center')
+  end
 end
-
 
 drawScheme( schema(1).schemeName, colrs(chosenColor,:) );
 

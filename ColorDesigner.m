@@ -22,7 +22,7 @@ function varargout = ColorDesigner(varargin)
 
 % Edit the above text to modify the response to help ColorDesigner
 
-% Last Modified by GUIDE v2.5 27-Feb-2019 01:39:40
+% Last Modified by GUIDE v2.5 27-Feb-2019 08:35:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -133,6 +133,9 @@ idx = get(handles.popupmenu2, 'Value');
 s=struct('colorNames',{colorNames{idx}},'colors',{colors(idx,:)});
 setBaseColor(s);
 setPalette(s);
+axes(getWheelAxesHandle());
+cla;
+colorWheel();
 axes(getSwatchAxesHandle());
 cla;
 drawSwatches();
@@ -259,3 +262,16 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 createSwatchPanel();
+
+
+% --- Executes on button press in checkbox1.
+function checkbox1_Callback(hObject, eventdata, handles)
+% hObject    handle to checkbox1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkbox1
+setLabels( get(hObject,'Value') )
+axes(getWheelAxesHandle());
+cla;
+colorWheel();

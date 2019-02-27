@@ -2,6 +2,8 @@ function paletteDesigner()
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
+clear all;
+
 load('Dyes.mat')
 setColorNames(colors{1});
 setColors(RGB./255);
