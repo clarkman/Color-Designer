@@ -1,4 +1,4 @@
-function [ output_args ] = colorWheel( colorNames, colrs, baseColor, schema )
+function [ output_args ] = colorWheel()
 %COLORWHEEL Facilitate color choices for design.
 %   Using a flattening of the HSL model, identify other colors on a list
 %   that are appropriate selections for the design of a brochure, house 
@@ -18,6 +18,10 @@ function [ output_args ] = colorWheel( colorNames, colrs, baseColor, schema )
 %     'cool'; 'analogous'; 'triadic'; 'tetradic'; 'split complements'; 
 %     or 'monochromatic'.
 
+colorNames = getColorNames();
+colrs = getColors();
+baseColor = getBaseColor();
+schema = getColorScheme();
 
 wheelRadius = 1;
 wheelThickness = 0.05;
@@ -32,7 +36,7 @@ chosenColor='';
 
 for c = 1 : numColors
     %colorNames{c}
-    if( strcmpi(colorNames{c},baseColor) )
+    if( strcmpi(colorNames{c},baseColor(1).colorNames) )
         chosenColor = c;
         chosenColorName = colorNames{c};
         %colrs(c,:)
@@ -41,47 +45,81 @@ for c = 1 : numColors
 end
 
 if(isempty(chosenColor))
-    error(['Specified color: ', baseColor, ' not found!'])
+    error(['Specified color: ', baseColor(1).colorNames, ' not found!'])
 end
 
-for theta = 0:angleStep:360
-    line([innerR*sind(theta),outerR*sind(theta)],...
-         [innerR*cosd(theta),outerR*cosd(theta)],...
-         'Color',hsv2rgb([theta/360,1,1]))
-end
-spoke=1.1;
-for theta = 0:30:360
-    x=outerR*sind(theta);
-    y=outerR*cosd(theta);
-    line([x,x*spoke],...
-         [y,y*spoke],...
-         'Color',hsv2rgb([theta/360,1,1]))
-end
+drawWheel();
 
-set(gcf, 'OuterPosition', [ 320 20 1150 1150 ] );
-set(gca, 'XLim', [-2 2])
-set(gca, 'YLim', [-2 2])
+% Create a small circle to be used for all swatches
+swatchRadius = 0.075;
+angleStep = 20; %deg
+numSteps = 360/angleStep+1;
+circle = zeros(numSteps,2);
+steps = 1:numSteps;
+thetas = (steps-1)*angleStep;
+circle(:,1) = swatchRadius * cosd(thetas);
+circle(:,2) = swatchRadius * sind(thetas);
+%plot(circle(:,1),circle(:,2))
 
-tOff = 0.1;
+% Now create two matrices to hold all color positions
+swatchesX = zeros(numSteps,numColors);
+swatchesY = swatchesX;
 for c = 1 : numColors
-    sprintf('%s',colorNames{c});
-    hssv=rgb2hsv(colrs(c,:)./255.0);
+    swatchesX(:,c) = circle(:,1);
+    swatchesY(:,c) = circle(:,2);
+end
+% And colors
+colors = zeros(numColors,3);
+cIdxs = 1 : numColors;
+%colors=colrs(cIdxs,:)./255;
+
+
+for c = 1 : numColors
+    %sprintf('%s',colorNames{c});
+    hssv=rgb2hsv(colrs(c,:));
     rad=hssv(3)*2;
     xPos = sind(hssv(1)*360)*rad;
     yPos = cosd(hssv(1)*360)*rad;
-    colr=colrs(c,:)./255;
+%     swatchesX(:,c) = swatchesX(:,c) + sind(hssv(1)*360)*rad;
+%     swatchesY(:,c) = swatchesY(:,c) + cosd(hssv(1)*360)*rad;
+    colr=colrs(c,:);
 %    line([0 xPos],[0 yPos],'Color',colr,...
-    line([xPos],[yPos],'Color',colr,...
-        'Marker','o','LineStyle','none',...
-        'MarkerFaceColor',colr,...
-        'MarkerSize',24)
+%     line([xPos],[yPos],'Color',colr,...
+%         'Marker','o','LineStyle','none',...
+%         'MarkerFaceColor',colr,...
+%         'MarkerSize',24,...
+%         'UserData',colorNames{c},...
+%         'ButtonDownFcn',@colorCallback...
+%     )
+      s=struct('colorNames',{colorNames{c}},'colors',{colr});
+      patch(circle(:,1)+xPos,circle(:,2)+yPos,colr,...
+          'EdgeColor','none',...
+          'UserData',s,...
+          'ButtonDownFcn',@colorCallback);
+end
+% size(swatchesX)
+% size(swatchesY)
+% size(colors')
+% patch(swatchesX,swatchesY,colors',)
+%patch(swatchesX,swatchesY)
+
+
+% Draw text
+tOff = 0.075;
+for c = 1 : numColors
+    sprintf('%s',colorNames{c});
+    hssv=rgb2hsv(colrs(c,:));
+    rad=hssv(3)*2;
+    xPos = sind(hssv(1)*360)*rad;
+    yPos = cosd(hssv(1)*360)*rad;
     text(xPos,yPos-tOff,colorNames{c},...
         'HorizontalAlignment','center')
 end
 
-drawScheme( schema, colrs(chosenColor,:) );
 
-title( { [schema, ' for ', chosenColorName] ; '' } )
+drawScheme( schema(1).schemeName, colrs(chosenColor,:) );
+
+title( { [schema(1).schemeName, ' for ', chosenColorName] ; '' }, 'FontSize', 14 );
 
 end
 
@@ -93,7 +131,6 @@ hue=hssv(1);
 rad=2;
 xPos = sind(hue*360)*rad;
 yPos = cosd(hue*360)*rad;
-
 
 switch scheme
    case 'warm'
