@@ -35,7 +35,6 @@ chosenColor='';
 %isempty(chosenColor)
 
 for c = 1 : numColors
-    %colorNames{c}
     if( strcmpi(colorNames{c},baseColor(1).colorNames) )
         chosenColor = c;
         chosenColorName = colorNames{c};

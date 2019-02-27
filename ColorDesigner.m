@@ -126,6 +126,7 @@ function popupmenu2_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns popupmenu2 contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from popupmenu2
+display('popupmenu2_Callback')
 colors = getColors();
 colorNames = getColorNames();
 idx = get(handles.popupmenu2, 'Value');
