@@ -1,5 +1,15 @@
 function createSwatchPanel();
 
+
+prompt = {'Enter palette name:'};
+dlg_title = 'Save Palette ...';
+num_lines = 1;
+defaultans = {'My palette'};
+answer = inputdlg(prompt,dlg_title,num_lines,defaultans);
+if isempty( answer )
+	return
+end
+
 pal = getPalette();
 sz = size(pal);
 numColors=sz(2);
@@ -27,3 +37,13 @@ set(gca,'XTickLabel',colrNames);
 set(gca,'YTickLabel',{});
 set(gca,'FontSize',10)
 
+title( answer )
+
+get(gcf)
+get(gca)
+
+pDir = 'palettes/';
+system( [ 'mkdir -p ', pDir] );
+outFile = [pDir, answer{1}, '.jpg'];
+saveas( gcf, outFile, 'jpeg' );
+%print( gcf, '-djpeg100', '-noui', [pDir, answer, '.jpg'] );
