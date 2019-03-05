@@ -27,4 +27,3 @@ set(hndl,'YTick',[]);
 set(hndl,'XTickLabel',colrNames);
 set(hndl,'YTickLabel',{});
 set(hndl,'FontSize',10)
-

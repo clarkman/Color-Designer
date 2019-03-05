@@ -7,15 +7,27 @@ pal = getPalette();
 sz = size(pal);
 numColors = sz(2);
 
+
+removing = 0;
 for c = 1 : numColors
-    if strcmpi(pal(c).colorNames,colr(1).colorNames)
-    	warning([ 'Color: ', pal(c).colorNames, ' is already in palette.'])
-    	return
-    end
+    if strcmpi(pal(c).colorNames,colr.colorNames)
+		removing = c;    
+	end
 end
 
-pal = [ pal colr ];
-
-setPalette(pal);
+if ~removing % We are adding
+	setPalette([ pal colr ]);
+else
+	newPalNames = {};
+	newPalColrs = {};
+	for c = 1 : numColors
+		if strcmpi(colr.colorNames,pal(c).colorNames)
+			continue
+		end
+		newPalNames = [ newPalNames, pal(c).colorNames ];
+		newPalColrs = [ newPalColrs, pal(c).colors ];
+	end
+	setPalette( struct('colorNames',newPalNames,'colors',newPalColrs) );
+end
 
 drawSwatches();

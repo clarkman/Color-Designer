@@ -194,6 +194,16 @@ switch scheme
       line([0,-lxPos],[0,-lyPos],'Color',colr)
       line([0,-rxPos],[0,-ryPos],'Color',colr)
       line([0,xPos],[0,yPos],'Color',colr)
+   case 'split analogous'
+      rAng = (hue*360)-60;
+      rxPos = sind(rAng)*rad;
+      ryPos = cosd(rAng)*rad;
+      lAng = (hue*360)+60;
+      lxPos = sind(lAng)*rad;
+      lyPos = cosd(lAng)*rad;
+      line([0,lxPos],[0,lyPos],'Color',colr)
+      line([0,rxPos],[0,ryPos],'Color',colr)
+      line([0,xPos],[0,yPos],'Color',colr)
    case 'neutrals'
       sprintf('%s not implemented yet',scheme)
    case 'monochromatic'

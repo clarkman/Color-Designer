@@ -155,7 +155,7 @@ end
 % Set popup strings
 set(hObject, 'String', getColorNames());
 % Set to RavenBlack
-set(hObject,'Value',23);
+set(hObject,'Value',69);
 
 
 

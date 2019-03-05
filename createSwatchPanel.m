@@ -36,12 +36,12 @@ set(gca,'YTick',[]);
 set(gca,'XTickLabel',colrNames);
 set(gca,'YTickLabel',{});
 set(gca,'FontSize',10)
+set(gca,'Position',[0.1, 0.15, 0.8, 0.75])
+set(gcf,'Position',[100, 100, 700, 140])
+set(gca,'XLim',[0 numColors*2])
 
 title( answer )
-
-get(gcf)
-get(gca)
-
+set(gcf,'Name',answer{1})
 pDir = 'palettes/';
 system( [ 'mkdir -p ', pDir] );
 outFile = [pDir, answer{1}, '.jpg'];

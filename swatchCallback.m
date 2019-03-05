@@ -4,9 +4,6 @@ colr=arg1.UserData;
 
 bColor = getBaseColor();
 
-colr(1).colorNames;
-bColor(1).colorNames;
-
 pal = getPalette();
 sz = size(pal);
 numColors = sz(2);
@@ -20,7 +17,7 @@ newPalNames = {};
 newPalColrs = {};
 
 for c = 1 : numColors
-	if strcmpi(colr(1).colorNames,pal(c).colorNames)
+	if strcmpi(colr.colorNames,pal(c).colorNames)
 		continue
 	end
 	newPalNames = [ newPalNames, pal(c).colorNames ];
